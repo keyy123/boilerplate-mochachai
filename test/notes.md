@@ -1,9 +1,12 @@
 ## Changes:
 
-1. I added a 'test' script for mocha test runner to check test
+1. I used .isDefined or .isUndefined assert methods to determine if a value passed in is undefined or not. 
 
-```sh
-nvm use 16 && npm i && npm test
+```js
+assert.isDefined(1, "is not undefined")
+assert.isUndefined(tea, 'no tea is provided')
 ```
 
-2. I imported `suite` and `test` from mocha within both test files with `/tests` directories
+resource(s):
+[1]: [assert.isDefined](https://www.chaijs.com/api/assert/#method_isdefined)
+[2]: [assert.isUndefined](https://www.chaijs.com/api/assert/#method_isundefined)
