@@ -1,15 +1,12 @@
-## Use Assert.isOK and Assert.isNotOK:
+## Use double equals to assert equality
 
-`isTrue()` and `isNotTrue()` are used to test explicitly for `true` or anything that is not the value `true`
+`equal()` compares objects using `==` (loose equality)
+`notEqual()` test if 2 objects are not equal `!=` (loose inequality)
 
 GOTCHAS:
+* Objects with the same keys andd values within them are not the same object aka they are
+not equal... at least with loose equality 
 
-1. Truthy values (like objects, etc) are not the same as `true` boolean value
-
-2. Double negation (!!) evaluates truthy values into boolean
-
-3. `isTrue` and `isNotTrue` check if the value is equal to `true` or `!true`
- -? : How strict is the equality here?
 resource(s):
-[1]: [assert.isTrue](https://www.chaijs.com/api/assert/#method_istrue)
-[2]: [assert.isNotTrue](https://www.chaijs.com/api/assert/#method_isnottrue)
+[1]: [assert.equal](https://www.chaijs.com/api/assert/#method_equal)
+[2]: [assert.notEqual](https://www.chaijs.com/api/assert/#method_notequal)
