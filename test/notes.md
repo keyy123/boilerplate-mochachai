@@ -1,12 +1,11 @@
-## Changes:
+## Use Assert.isOK and Assert.isNotOK:
 
-1. I used .isDefined or .isUndefined assert methods to determine if a value passed in is undefined or not. 
-
+`isOk()` and `isNotOk()` are used to test if a value is true or false
 ```js
 assert.isDefined(1, "is not undefined")
 assert.isUndefined(tea, 'no tea is provided')
 ```
 
 resource(s):
-[1]: [assert.isDefined](https://www.chaijs.com/api/assert/#method_isdefined)
-[2]: [assert.isUndefined](https://www.chaijs.com/api/assert/#method_isundefined)
+[1]: [assert.isOk](https://www.chaijs.com/api/assert/#method_isok)
+[2]: [assert.isNotOk](https://www.chaijs.com/api/assert/#method_isnotok)
