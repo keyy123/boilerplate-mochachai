@@ -73,7 +73,7 @@ suite('Unit Tests', function () {
       assert.isAtLeast(2 * Math.random(), 0);
       assert.isBelow(5 % 2, 2);
       assert.isBelow(2 / 3, 1);
-    });
+    }); 
     // #10
     test('#approximately', function () {
       assert.fail(weirdNumbers(0.5), 1, 0);
