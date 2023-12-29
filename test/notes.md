@@ -1,9 +1,11 @@
-## Array Assertions
+## String Assertions
 
-`isArray()` test if the value passed in is an array and returns a boolean
-`isNotArray` tests if the value passed in is anything BUT an array and returns a boolean
-`include()` tests if a value is present within another object or list
-`notInclude` tests if a value is not present within another object or list
+`isString()` test if the value passed in as a string
+`isNotString()` tests if the value passed in is not a string
+`include()` which is also an array assertion works on string in the same way but just looks for a substring in the actual value
+`notInclude()` checks if a substring is not within a actual string value 
+`match()` checks if the actual value passed in matches the regex expression (2nd argument)
+`notMatch()` checks if actual value does not match regex expression
 ```js
 
 ```
@@ -11,11 +13,7 @@ GOTCHAS:
 
 
 resource(s):
-[1]: [assert.isArray](https://www.chaijs.com/api/assert/#method_isarray)
-[2]: [assert.isNotArray](https://www.chaijs.com/api/assert/#method_isnotarray)
+[1]: [assert.isString](https://www.chaijs.com/api/assert/#method_isstring)
+[2]: [assert.isNotString](https://www.chaijs.com/api/assert/#method_isnotstring)
 [3]: [assert.include](https://www.chaijs.com/api/assert/#method_include)
-[4]: [assert.notInclude](https://www.chaijs.com/api/assert/#method_notinclude)
-
-
-UPDATE:
-After testing the branching strategy for study purposes, I have concluded that it may be more efficient to chunk the information a bit more in the context of this specific course. This branch is for lessons 11 and 12 (Test if a value is an array and contains and item)
+[4]: [assert.notInclude](https://www.chaijs.com/api/assert/#method_notInclude)
