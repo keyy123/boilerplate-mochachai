@@ -1,14 +1,17 @@
-## Testing if a value is within a specific range
+## Array Assertions
 
-`appromixately()` tells us that the actual value should be eqaul to the expected value given a range of delta (+/= amount of change from expected)
-
-assert.approximately(1, 0, 2) === -2 to 2 (1 (actual) is approximately equal to 0 (expected) b/c its in range)
-
+`isArray()` test if the value passed in is an array and returns a boolean
+`isNotArray` tests if the value passed in is anything BUT an array and returns a boolean
+`include()` tests if a value is present within another object or list
+`notInclude` tests if a value is not present within another object or list
 ```js
-`approximately(actual, expected, delta, [message])`
+
 ```
 GOTCHAS:
 
 
 resource(s):
-[1]: [assert.approximately](https://www.chaijs.com/api/assert/#method_approximately)
+[1]: [assert.isArray](https://www.chaijs.com/api/assert/#method_isarray)
+[2]: [assert.isNotArray](https://www.chaijs.com/api/assert/#method_isnotarray)
+[3]: [assert.include](https://www.chaijs.com/api/assert/#method_include)
+[4]: [assert.notInclude](https://www.chaijs.com/api/assert/#method_notinclude)
