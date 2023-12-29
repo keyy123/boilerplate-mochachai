@@ -1,11 +1,11 @@
-## String Assertions
+## Object Assertions
 
-`isString()` test if the value passed in as a string
-`isNotString()` tests if the value passed in is not a string
-`include()` which is also an array assertion works on string in the same way but just looks for a substring in the actual value
-`notInclude()` checks if a substring is not within a actual string value 
-`match()` checks if the actual value passed in matches the regex expression (2nd argument)
-`notMatch()` checks if actual value does not match regex expression
+`property()` checks that the object passed in has a specific property 
+`notProperty()` checks that the object passed in does not have a specific property
+`typeOf()` checks if the object passed in matches the name (string ) of it's type
+`notTypeOf()` checks if object passed in does not match the string of it's type
+`instanceOf()`checks if obejct passed in is an instance of a constructor
+`notInstanceOf()`check if object passed in is not an instance of a constructor
 ```js
 
 ```
@@ -13,7 +13,9 @@ GOTCHAS:
 
 
 resource(s):
-[1]: [assert.isString](https://www.chaijs.com/api/assert/#method_isstring)
-[2]: [assert.isNotString](https://www.chaijs.com/api/assert/#method_isnotstring)
-[3]: [assert.include](https://www.chaijs.com/api/assert/#method_include)
-[4]: [assert.notInclude](https://www.chaijs.com/api/assert/#method_notInclude)
+[1]: [assert.property](https://www.chaijs.com/api/assert/#method_property)
+[2]: [assert.notProperty](https://www.chaijs.com/api/assert/#method_notProperty)
+[3]: [assert.typeOf](https://www.chaijs.com/api/assert/#method_typeof)
+[4]: [assert.notTypeOf](https://www.chaijs.com/api/assert/#method_nottypeof)
+[5]: [assert.instanceOf](https://www.chaijs.com/api/assert/#method_instanceOf)
+[6]: [assert.notInstanceOf](https://www.chaijs.com/api/assert/#method_notInstanceOf)
