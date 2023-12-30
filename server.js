@@ -7,12 +7,17 @@ const runner = require('./test-runner');
 
 const bodyParser = require('body-parser');
 app.use(bodyParser.json());
+app.set('view engine', 'pug');
+app.set('views', './views/pug');
 
 app.get('/', function (req, res) {
-  res.sendFile(__dirname + '/views/index.html');
+    //   res.sendFile(__dirname + '/views/index.html');
+    res.render('index', {title: 'Hello', message: 'Please log in'})
 })
 
 app.use(express.static(__dirname + '/public'));
+
+
 
 app.get('/hello', function (req, res) {
   const name = req.query.name || 'Guest';

@@ -1,82 +1,43 @@
-## Functional Testing Using A Headless Browser
+## Advanced Node and Express 
 
-### Simulate Actions Using a Headless Browser
+### Template Engine Setup
 
-- What is a headless browser?
-    * A browser without a GUI aka no screen/window to see web pages, videos, etc. 
-    * They still renders and understand HTML, CSS, JS like a normal browser which is great for testing since we don't use memory or space on visualizing web pages. 
+#### What is a template engine?
+- A tool that lets us use static template files in our app. When the app is running the template engine swaps variables in the template with actual values which we can give it from our server (backend). It turns the template into a static HTML file that is used by client (frontend). 
 
-- Why are we using Zombie.js?
-    * Besides the cool theme, It is lightweight since we don't need extra installations like other headless browsers
-    * It works in limited sandboxes like replit
-    * CONS: Not as powerful as other headless browsers like Cypress or puppeteer
+- Pros: It's eaier to makea HTML page that shows variables without needing an API call to show some data. 
+- Good for MVP iteration aka rapid prototyping. 
 
-- How will Zombie.js and Mocha work together?
-    * Mocha has a method or hook to allow us to setup code before running test which is good for very slow async tasks like updating or reading from DB or other tasks
-    * In the case of headless browsers, You need to go to the webpage before running any test (focusing on visiting pages)
-    * `SuiteSetup` hook is ran only once at the start of a test suite. 
-    * It is same as `beforeAll` hook  
-    [mocha hooks](https://mochajs.org/#hooks)
-
-    
-
-```sh
-
-// Using Zombie.js with Mocha to setup lightweight client-side testing simulate user actions
-
-1. Install zombie and import into test suite
+#### How to tell Express.js to set a specific template engine to use?
+- We use Express app's `set` method with a key `view engine` with a value `pug` (or jade)
 ```js
-const Browser = require('zombie.js');
-Browser.site = 'url of project';
+app.set('view engine', 'pug');
 ```
+- We use another `set` method to set the `views` key of the express app to point to `./views/pug` folder (directory). 
 
-2. Make a new instance of the browser interface
 ```js
-const browser = new browser();
+app.set('views', './views/pug')
 ```
 
-3. Use mocha's hook `suiteSetup` to get zombie headless browser ready for test with
-cb function using done to end async work
+### Using a Template Engine's Powers
 
-suiteSetup(function(done){
-    browser.visit('/[path]', done);
-});
+- One of the best features of a template engine is pass variables from the server to the template before turning into client-side html
+
+- We can use variables in pug files like so:
+```pug
+head
+    title=title
+body
+    <p>#{name}</p>
+    <p>#{message}</p>
 ```
 
-### Zombie methods 
-- Zombie.js has methods (usually async) that allows us to imitiate user activity 
-- `.fill()` on browser object fills in a form after taking in a element selector and text to fill in input. It returns a promise so we need to promise chain or async/await to continue. 
-- `.pressButton()` is a method to call a form's submit button. It is async so use within a promise chain or async/await. 
-- `.assert.success()` is a method to test if a response object has a status of 200
-- `.assert.text()` is a method to insert text into a element selector
-- `.assert.elements()` is a method to determine the number of elements on a webpage
-note: all methods above are async
-[Read zombie docs here. It's a quick read.](https://zombie.js.org/)
-example:
+- The variables don't have values at the moment because we need to send them from the server using `res.render` with an object with each variable as a key with a value with want each one to have:
+
 ```js
-test('Submit the surname "Polo" in the HTML form', function (done) {
-  browser.fill('surname', 'Polo').then(() => {
-    browser.pressButton('submit', () => {
-      browser.assert.success();
-      browser.assert.text('span#name', 'Marco');
-      browser.assert.text('span#surname', 'Polo');
-      browser.assert.elements('span#dates', 1, {atMost: 1});
-      done();
-    });
-  });
-});
-
-/*
-First, the fill method of the browser object fills the surname field of the form with the value 'Polo'. fill returns a promise, so then is chained off of it.
-
-Within the then callback, the pressButton method of the browser object is used to invoke the form's submit event listener. The pressButton method is asynchronous.
-
-Then, once a response is received from the AJAX request, a few assertions are made confirming:
-
-The status of the response is 200
-The text within the <span id='name'></span> element matches 'Marco'
-The text within the <span id='surname'></span> element matches 'Polo'
-There is 1 <span id='dates'></span> element.
-Finally, the done callback is invoked, which is needed due to the asynchronous test.
-*/
+app.get("/", ((req, res) =>{
+    res.render('index', { title: 'Hello', message: 'Please log in', name: 'Guest' });
+}))
 ```
+
+When you reload server, you should see the values from server on the client-side!
