@@ -2,6 +2,10 @@
 const express = require('express');
 const app = express();
 
+// import passport and express session in as variables
+const passport = require('passport');
+const session = require('express-session');
+
 const cors = require('cors');
 const runner = require('./test-runner');
 
@@ -16,6 +20,17 @@ app.get('/', function (req, res) {
 })
 
 app.use(express.static(__dirname + '/public'));
+
+// set up express app to use session 
+app.use(session({
+    secret: process.env.SESSION_SECRET,
+    resave: true,
+    saveUninitialized: true,
+    cookie: { secure: false }
+}));
+
+app.use(passport.initialize());
+app.use(passport.session())
 
 
 
