@@ -1,60 +1,68 @@
-## Set up passport
+## Serialization of a User Object
 
 - Goal(s):
-    * Use passport to start user sign up and login to an account
-    * Use `express-session` to handle sessions 
-    * Learn how to use sessions for applications
+    * Use passport to serialize and deserialize objects for auth process
+    * Learn serialization and deserialization
+    * Learn how to install mongoDB as a dependency
+    * Utilize mongodb to link DB and send objects to express server
 
-### Why use express-sessions?
-- IT saves session id as a cookie in frontend, and let us get the data on the backend via the id. 
-- It keeps sensitive info from the cookie on the frontend but tell the beackend that the user is logged in and saves the key in BE
 
-#### Requirements for this lesson:
-- `passport@~0.4.1`
-- `express-session@~1.17.1`
+- De/serialization are vital parts of authentication. 
+- Serializing an object = turn its properties and values into a `key` that can be converted back into the original object (deserializating)
+ Purpose: Lets us know who is accessing server without sensitive data sent for each request like username and password
 
-### How do we setup session settings and start passport?
+GOTCHA:
+- Passport will keep a consistent login sessions BUT the user has to be serialized into the session and deserialized when requests are made. 
+- Passport only asks us to give it functions/code how we de/serialize the users
 
-1. import session and passort into file
-
+Example - de/serialize user - basic
 ```js
-const session = require('express-session');
-const passport = require('passport');
+passport.serializeUser(function(user, done) {
+  done(null, user.id);
+});
+
+passport.deserializeUser(function(id, done) {
+  User.findById(id, function (err, user) {
+    done(err, user);
+  });
+});
 ```
 
+ ### How serialize and deserialize objects with passport?
 
-2. Setup express app to use session with the following options:
+ - We make both using passport's `serializeUser` and `deserializeUser` methods:
 
-```js
-app.use(session({
-    secret: process.env.SESSION_SECRET,
-    resave: true,
-    saveUninitialized: true,
-    cookie: {secure: false}
-}));
+ ```js
+ passport.serializeUser(callback)
+ passport.deserializeUser(callback)
 
-// SESSION_SECRET will be used to make the hash to encrypt our cookie
-```
+ callback for de/serializeUser
 
-3. Setup express app to use `passport.initialize()` and `passport.session()`
+ passport.serializeUser((user, done) => {
+    done(null, user._id)
+ })
+// cb = (user, done) => {done(null, user...)}
+ // * done == callback for passport de/serialize to signal async work done
 
-```js
-app.use(passport.intialize())
-app.use(passport.session())
-```
+passport.deserializeUser((id, done) => {
+    myDataBase.findOne({_id: new ObjectID(id)}, (err, doc) => {
+        done(null, null); 
+    })
+})
+// (id, done) => { db.method((err, obj) => {done(null, null)})})
+// ObjectID class comes from `mongodb` package - `mongodb@~3.6.0`  - make sure to install it and import ObjectID from mongodb package!
+ ```
+
+###
 
 
-Personal Questions:
+1. What are real world context(s) to use serialization/deserialization besides just auth?
 
-1. When would it be a good idea to use cookies/session based auth? 
+2. When shouldn't you use de/serialization?
 
-2. What are real world context to use it?
+3. What are better alternatives in weaker use-cases?
 
-3. When shouldn'y you use it?
-
-4. What are better alternatives to it?
-
-5. Give code examples in each case to the above questions...
+4. Give code examples in each case to the above questions...
 
 
 Resources: 

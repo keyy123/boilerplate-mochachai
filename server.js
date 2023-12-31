@@ -5,6 +5,7 @@ const app = express();
 // import passport and express session in as variables
 const passport = require('passport');
 const session = require('express-session');
+const { ObjectID } = require('mongodb');
 
 const cors = require('cors');
 const runner = require('./test-runner');
@@ -32,6 +33,17 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session())
 
+
+passport.serializeUser((user, done) => {
+    done(null, user._id);
+});
+
+passport.deserializeUser((id, done) => {
+    // without an actual db connection, we'll get an error so commented out for now
+    // myDataBase.findOne({ _id: new ObjectID(id) }, (err, doc) => {
+        done(null, null);
+    // })
+})
 
 
 app.get('/hello', function (req, res) {
